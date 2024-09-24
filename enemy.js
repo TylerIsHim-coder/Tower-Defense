@@ -9,6 +9,7 @@ class Enemy {
         this.ySpeed = 0;
         this.size = 30;
         this.targetNode = 0;
+        this.finished = false;
     }
 
     draw() {
@@ -46,6 +47,10 @@ class Enemy {
         if(distance < this.speed) {
             this.xSpeed = 0;
             this.ySpeed = 0;
+
+            if(this.targetNode == this.nodes.length - 1) {
+                this.finished = true;
+            }
         }
     }
 
