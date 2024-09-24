@@ -32,11 +32,17 @@ class Enemy {
             this.targetNode++;
             let target = this.nodes[this.targetNode];
             //Set x and y speed to move to target
-            let xDifference = targetx - this.x;
+            let xDifference = target.x - this.x;
             let yDifference = target.y - this.y;
             let angle = atan2(yDifference, xDifference);
             this.xSpeed = this.speed * cos(angle);
             this.ySpeed = this.speed * sin(angle);
         }
+    }
+
+    update() {
+        this.findTarget();
+        this.move();
+        this.draw();
     }
 }

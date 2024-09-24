@@ -20,6 +20,8 @@ var path;
  *** SETUP FUNCTION ****
  ***********************/
 
+ var enemy;
+
 function setup() {
     createCanvas(700, 700).parent("gameCanvas");
     grassImg = loadImage("https://TylerIsHim-coder.github.io/Tower-Defense/grass.png");
@@ -35,7 +37,7 @@ function draw() {
     background(0, 200, 0);
     image(grassImg, 0, 0, 700, 700); 
     path.draw();
-    enemy.draw();
+    enemy.update();
 }
 
 /***********************
