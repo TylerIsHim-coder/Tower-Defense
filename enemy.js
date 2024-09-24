@@ -40,9 +40,19 @@ class Enemy {
         }
     }
 
+    checkTarget() {
+        let target = this.nodes[this.targetNode];
+        let distance = dist(this.x, this.y, target.x, target.y);
+        if(distance < this.speed) {
+            this.xSpeed = 0;
+            this.ySpeed = 0;
+        }
+    }
+
     update() {
         this.findTarget();
         this.move();
         this.draw();
+        this.checkTarget();
     }
 }
