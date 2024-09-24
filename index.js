@@ -22,7 +22,7 @@ var path;
 
 function setup() {
     createCanvas(700, 700).parent("gameCanvas");
-    grassImg = loadImage("https://t4.ftcdn.net/jpg/02/50/08/51/360_F_250085110_HYTva7n4e9DGnangPa2hZZUZfj3pVAIc.jpg");
+    grassImg = loadImage("https://TylerIsHim-coder.github.io/Tower-Defense/grass.png");
     path = new Path(levelOneNodes);
     enemy = new Enemy(1, 3, levelOneNodes);
 }
