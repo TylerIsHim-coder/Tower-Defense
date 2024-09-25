@@ -45,6 +45,10 @@ function draw() {
     }
 
     enemies = enemies.filter(e => e.finished == false);
+
+    for(var turret of turrets) {
+        turret.update();
+    }
 }
 
 /***********************
