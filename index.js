@@ -21,6 +21,7 @@ var path;
  ***********************/
 
  var enemies;
+ var turrets;
 
 function setup() {
     createCanvas(700, 700).parent("gameCanvas");
@@ -28,6 +29,8 @@ function setup() {
     path = new Path(levelOneNodes);
     //enemy = new Enemy(1, 3, levelOneNodes);
     enemies = [];
+    turrets = [];
+    turrets.push(new Turret(path.roads));
     setInterval(function() { enemies.push(new Enemy(1, 3, levelOneNodes)) }, 1000);
 }    
 
@@ -54,3 +57,23 @@ function draw() {
 /***********************
  *** OTHER FUNCTIONS ***
  ***********************/
+
+ function getTurretBeingPlaced() {
+    for(var turret of turrets) {
+        if(turret.placed == false) {
+            return turret;
+        }
+    }
+    return null;
+}
+
+function mousePressed() {
+    let turret = getTurretBeingPlaced();
+    if(turret != null){
+        if(turret.isValid()) {
+            turret.placed = true;
+
+            turret.push(new Turret(path.roads));
+        }
+    }
+}
