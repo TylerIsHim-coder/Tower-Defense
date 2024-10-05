@@ -73,7 +73,7 @@ function mousePressed() {
         if(turret.isValid()) {
             turret.placed = true;
 
-            turret.push(new Turret(path.roads));
+            turrets.push(new Turret(path.roads));
         }
     }
 }
