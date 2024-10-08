@@ -12,10 +12,12 @@ class Turret {
     }
 
     draw() {
-        strokeWeight(1);
-        stroke('black');
-        fill(255, 255, 0, 50)
-        ellipse(this.x, this.y, this.range * 2, this.range * 2);
+        if(!this.placed || this.selected) {
+            strokeWeight(1);
+            stroke('black');
+            fill(255, 255, 0, 50)
+            ellipse(this.x, this.y, this.range * 2, this.range * 2);
+        }
 
         strokeWeight(5);
         stroke(this.chooseColor())
@@ -31,6 +33,9 @@ class Turret {
     }
 
     chooseColor() {
+        if(this.selected) {
+            return "blue";
+        }
         if(this.placed || this.isValid()) {
             return "white";
         } else {
@@ -52,6 +57,18 @@ class Turret {
         return false;
     }
 
+    onTurret() {
+        for(var turret of turrets) {
+            if(turret == this) {
+                continue;
+            }
+            if(CircleInCircle(this, turret)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     isValid() {
         if(this.x < 0 || this.x > 700 || this.y < 0 || this.y > 700) {
             return false;
@@ -60,6 +77,10 @@ class Turret {
         if(this.onRoad()) {
             return false;
         } 
+
+        if(this.onTurret()) {
+            return false;
+        }
 
         return true;
     }
@@ -97,3 +118,30 @@ function CircleInRect(c, r) {
         return false;
     }
 }
+function CircleInCircle(c1, c2) {
+    return dist(c1.x, c1.y, c2.x, c2.y) < (c1.size/2) + (c2.size/2);
+}
+
+function getTurretBeingPlaced() {
+    for(var turret of turrets) {
+        if(turret.placed == false) {
+            return turret;
+        }
+    }
+    return null;
+}
+
+function getTurretBeingClicked() {
+    for(var turret of turrets) {
+        if(dist(mouseX, mouseY, turret.x, turret.y) < turret.size/2) {
+            return turret;
+        }
+    }
+    return null;
+}
+
+function unselectAllTurrets() {
+        for(var turret of turrets) {
+                turret.selected = false;
+        }
+ }

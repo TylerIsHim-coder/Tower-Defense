@@ -58,22 +58,26 @@ function draw() {
  *** OTHER FUNCTIONS ***
  ***********************/
 
- function getTurretBeingPlaced() {
-    for(var turret of turrets) {
-        if(turret.placed == false) {
-            return turret;
-        }
-    }
-    return null;
-}
 
 function mousePressed() {
+
+    if(mouseX > 0 && mouseX < 700 && mouseY > 0 && mouseY < 700) {
+        unselectAllTurrets();
+    }
+
     let turret = getTurretBeingPlaced();
     if(turret != null){
         if(turret.isValid()) {
             turret.placed = true;
 
-            turrets.push(new Turret(path.roads));
+            //turrets.push(new Turret(path.roads));
+        }
+    }
+    else {
+        turret = getTurretBeingClicked();
+
+        if(turret != null) {
+            turret.selected = true;
         }
     }
 }
