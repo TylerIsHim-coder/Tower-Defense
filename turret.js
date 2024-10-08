@@ -53,7 +53,7 @@ class Turret {
     }
 
     isValid() {
-        if(this.x < 0 || this.x > 500 || this.y < 0 || this.y > 500) {
+        if(this.x < 0 || this.x > 700 || this.y < 0 || this.y > 700) {
             return false;
         }
 
