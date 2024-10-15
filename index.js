@@ -22,6 +22,7 @@ var path;
 
  var enemies;
  var turrets;
+ var projectiles;
 
 function setup() {
     createCanvas(700, 700).parent("gameCanvas");
@@ -30,8 +31,9 @@ function setup() {
     //enemy = new Enemy(1, 3, levelOneNodes);
     enemies = [];
     turrets = [];
+    projectiles = [];
     turrets.push(new Turret(path.roads));
-    setInterval(function() { enemies.push(new Enemy(1, 3, levelOneNodes)) }, 1000);
+    setInterval(function() { enemies.push(new Enemy(floor(random(1,5)), 3, levelOneNodes)) }, 1000);
 }    
 
 /***********************
@@ -51,6 +53,10 @@ function draw() {
 
     for(var turret of turrets) {
         turret.update();
+    }
+
+    for(var projectile of projectiles) {
+        projectile.update();
     }
 }
 

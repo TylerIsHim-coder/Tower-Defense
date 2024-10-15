@@ -54,6 +54,27 @@ class Enemy {
         }
     }
 
+    distanceTraveled() { 
+        //This function will return how much 
+        //distance an enemy has traveled 
+        var distance = 0;
+        //i will track which node we are looking at 
+        var i = 1; 
+        //if the node is past the end or past the player 
+        //then stop while loop 
+        while(i < this.nodes.length && i < this.targetNode) { 
+            let node1 = this.nodes[i-1]; 
+            let node2 = this.nodes[i]; 
+            //Add the nodes distance from the previous node 
+            distance += dist(node1.x, node1.y, node2.x, node2.y); 
+            i += 1; 
+        } 
+        //Add the remaining amount the player is from his last target node 
+        var lastNode = this.nodes[i-1];
+        distance += dist(this.x, this.y, lastNode.x, lastNode.y); 
+        return distance; 
+    } 
+
     update() {
         this.findTarget();
         this.move();
