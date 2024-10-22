@@ -41,7 +41,7 @@ function setup() {
  ***********************/
 
 function draw() {
-    background(0, 200, 0);
+    background(0, 200, 0); 
     image(grassImg, 0, 0, 700, 700); 
     path.draw();
 
@@ -49,7 +49,7 @@ function draw() {
         enemy.update();
     }
 
-    enemies = enemies.filter(e => e.finished == false);
+    filterArrays();
 
     for(var turret of turrets) {
         turret.update();
@@ -58,6 +58,13 @@ function draw() {
     for(var projectile of projectiles) {
         projectile.update();
     }
+
+    //projectiles = projectiles.filter(p => p.inWorld());
+}
+
+function filterArrays() {
+    enemies = enemies.filter(e => e.finished == false && e.strength > 0);
+    projectiles = projectiles.filter(p => p.inWorld() && p.strength > 0);
 }
 
 /***********************
@@ -84,6 +91,22 @@ function mousePressed() {
 
         if(turret != null) {
             turret.selected = true;
+        }
+    }
+}
+
+function keyPressed() {
+    let turret = getTurretBeingSelected();
+    if(turret != null) {
+        //Left Arrow Key
+        if(keyCode == LEFT_ARROW) {
+            if(turret.targetMode > 0)
+                turret.targetMode -= 1;
+        }
+
+        if(keyCode == RIGHT_ARROW) {
+            if(turret.targetMode < 2)
+                turret.targetMode += 1;
         }
     }
 }

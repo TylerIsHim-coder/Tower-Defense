@@ -75,7 +75,7 @@ class Enemy {
         return distance; 
     } 
 
-    update() {
+    update() { 
         this.findTarget();
         this.move();
         this.draw();

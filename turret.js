@@ -11,9 +11,10 @@ class Turret {
         this.placed = false;
         this.selected = false;
         this.projectileSpeed = 5;
-        this.projectilesStrength = 1;
+        this.projectileStrength = 1;
         this.shootCooldown = 30;
         this.shootingTimer = 30;
+        this.targetMode = 0;
     }
 
     draw() {
@@ -35,6 +36,13 @@ class Turret {
         stroke('black');
         fill(this.chooseColor());
         ellipse(this.x, this.y, this.size, this.size);
+
+        if(this.selected) {
+            fill('white');
+            textAlign(CENTER, CENTER);
+            textSize(15);
+            text(this.targetMode, this.x, this.y);
+        }
     }
 
     chooseColor() {
@@ -142,13 +150,43 @@ class Turret {
         return strongestEnemy;
     }
 
+    getEnemyFarthestFromStart() {
+        var farthestDistance = -1;
+        var farthestEnemy = null;
+        for(var enemy of enemies) {
+            var distance = dist(enemy.x, enemy.y, this.x, this.y);
+            if (distance > this.range + enemy.size/2) {
+                continue;
+            }
+            var travel = enemy.distanceTraveled();
+
+            if(travel > farthestDistance) {
+                farthestDistance = travel;
+                farthestEnemy = enemy;
+            }
+        }
+        return farthestEnemy;
+    }
+    
+
     targetEnemy() {
-        var enemy = this.getStrongestEnemy();
+        var enemy = null;
+        if(this.targetMode == 0) {
+            enemy = this.getEnemyClosestToTurret();
+        }
+        if(this.targetMode == 1) {
+            enemy = this.getStrongestEnemy();
+        }
+        if(this.targetMode == 2) {
+            enemy = this.getEnemyFarthestFromStart();
+        }
+
         if (enemy == null) {
             return;
         }
         
         this.lookAngle = atan2(enemy.y - this.y, enemy.x - this.x);
+        this.shootProjectile();
     }
 
     update() {
@@ -158,7 +196,7 @@ class Turret {
         }
         else {
             this.targetEnemy();
-            this.shootProjectile();
+            //this.shootProjectile();
         }
 
         this.draw();
@@ -195,6 +233,15 @@ function CircleInCircle(c1, c2) {
 function getTurretBeingPlaced() {
     for(var turret of turrets) {
         if(turret.placed == false) {
+            return turret;
+        }
+    }
+    return null;
+}
+
+function getTurretBeingSelected() {
+    for(var turret of turrets) {
+        if(turret.selected) {
             return turret;
         }
     }

@@ -22,4 +22,11 @@ class Projectile {
         this.move();
         this.draw();
     }
+
+    inWorld() {
+        let outside = 500;
+
+        return this.x > -outside && this.x < 700 + outside
+            && this.y > -outside && this.y < 700 + outside;
+    }
 }
