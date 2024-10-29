@@ -49,8 +49,6 @@ function draw() {
         enemy.update();
     }
 
-    filterArrays();
-
     for(var turret of turrets) {
         turret.update();
     }
@@ -58,6 +56,9 @@ function draw() {
     for(var projectile of projectiles) {
         projectile.update();
     }
+
+    filterArrays();
+    checkCollision();
 
     //projectiles = projectiles.filter(p => p.inWorld());
 }
@@ -71,6 +72,20 @@ function filterArrays() {
  *** OTHER FUNCTIONS ***
  ***********************/
 
+function checkCollision() {
+    for(var enemy of enemies) {
+        for(var projectile of projectiles) {
+            if(CircleInCircle(enemy, projectile)) {
+                var damage = min(enemy.strength, projectile.strength);
+
+                enemy.strength -= damage;
+                projectile.strength = 0;
+
+                filterArrays();
+            }
+        }
+    }
+}
 
 function mousePressed() {
 

@@ -5,13 +5,12 @@ class Turret {
         this.y = 150;
         this.size = 50
         this.gunSize = 37.5;
-        this.range = 200;
-        this.range = 100;
+        this.range = 150;
         this.lookAngle = 0;
         this.placed = false;
         this.selected = false;
-        this.projectileSpeed = 5;
-        this.projectileStrength = 1;
+        this.projectileSpeed = 6.5;
+        this.projectileStrength = 2;
         this.shootCooldown = 30;
         this.shootingTimer = 30;
         this.targetMode = 0;
