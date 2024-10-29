@@ -5,7 +5,30 @@
 
 #gameMenu {
     float:left;
-    width:200px;
-    height: 500px;
-    border: 1px solid black;
+    width: 200px;
+    height: 700px;
+    border: 1.25px solid black;
+}
+
+#menuInfo {
+    height: 200px;
+}
+
+#menuInfo img{
+    float: left;
+    width: 50px;
+}
+
+#menuInfo h2{
+    float: left;
+    width: 125px;
+    font-size: 20px;
+    padding-left: 25px;
+}
+
+#menuButtons button{
+    float: left;
+    height: 100px;
+    width: 200px;
+    font-size: 20px;
 }
