@@ -10,10 +10,24 @@ class Turret {
         this.placed = false;
         this.selected = false;
         this.projectileSpeed = 6.5;
-        this.projectileStrength = 2;
+        this.projectileStrength = 1;
         this.shootCooldown = 30;
         this.shootingTimer = 30;
         this.targetMode = 0;
+        this.upgrades = 0;
+        this.maxUpgrades = 3;
+    }
+
+    upgrade() {
+        let upgradePrice = (this.upgrades+ 2) * 100;
+        if(this.upgrades < this.maxUpgrades && money >= upgradePrice) {
+            money -= upgradePrice;
+            updateInfo();
+            this.upgrades ++;
+            this.shootCooldown -= 5;
+            this.projectileStrength += 1;
+            this.range += 50;
+        }
     }
 
     draw() {
@@ -200,6 +214,22 @@ class Turret {
 
         this.draw();
 
+    }
+}
+
+function upgradeTurret() {
+    let turret = getTurretBeingSelected();
+    if (turret != null) {
+        turret.upgrade();
+    }
+}
+
+function buyTurret() {
+    let turret = getTurretBeingPlaced();
+    if(money >= 100 && turret == null) {
+        money -= 100;
+        updateInfo();
+        turrets.push(new Turret(path.roads));
     }
 }
 

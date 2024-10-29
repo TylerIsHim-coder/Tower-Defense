@@ -23,6 +23,8 @@ var path;
  var enemies;
  var turrets;
  var projectiles;
+ var money = 1000;
+ var health = 100;
 
 function setup() {
     createCanvas(700, 700).parent("gameCanvas");
@@ -32,6 +34,7 @@ function setup() {
     enemies = [];
     turrets = [];
     projectiles = [];
+    updateInfo();
     turrets.push(new Turret(path.roads));
     setInterval(function() { enemies.push(new Enemy(floor(random(1,5)), 3, levelOneNodes)) }, 1000);
 }    
@@ -71,6 +74,10 @@ function filterArrays() {
 /***********************
  *** OTHER FUNCTIONS ***
  ***********************/
+
+ function updateInfo() {
+    document.getElementById("Money").innerHTML = money;
+ }
 
 function checkCollision() {
     for(var enemy of enemies) {
