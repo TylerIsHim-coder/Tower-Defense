@@ -32,3 +32,23 @@
     width: 200px;
     font-size: 20px;
 }
+
+.hoverButton {
+    position: relative;
+}
+
+.hoverButton .hoverText {
+    position: absolute;
+    right: 200px;
+    top: -2.5px;
+    width: 200px;
+    height: 55px;
+    padding-top: 40px;
+    background-color: lightgray;
+    color: black;
+    visibility: hidden;
+}
+
+.hoverButton:hover .hoverText {
+    visibility: visible;
+}

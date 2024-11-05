@@ -1,6 +1,8 @@
 /***********************
  ****** VARIABLES ******
  ***********************/
+var playing = true;
+
 var grassImg;
 
 var levelOneNodes = [
@@ -25,6 +27,7 @@ var path;
  var projectiles;
  var money = 1000;
  var health = 100;
+ var wave;
 
 function setup() {
     createCanvas(700, 700).parent("gameCanvas");
@@ -34,9 +37,10 @@ function setup() {
     enemies = [];
     turrets = [];
     projectiles = [];
+    wave = new Wave();
     updateInfo();
     turrets.push(new Turret(path.roads));
-    setInterval(function() { enemies.push(new Enemy(floor(random(1,5)), 3, levelOneNodes)) }, 1000);
+    //setInterval(function() { enemies.push(new Enemy(floor(random(1,5)), 3, levelOneNodes)) }, 1000);
 }    
 
 /***********************
@@ -44,6 +48,7 @@ function setup() {
  ***********************/
 
 function draw() {
+   if(playing) {
     background(0, 200, 0); 
     image(grassImg, 0, 0, 700, 700); 
     path.draw();
@@ -62,6 +67,10 @@ function draw() {
 
     filterArrays();
     checkCollision();
+    wave.update();
+}else{
+    drawGameOver();
+}
 
     //projectiles = projectiles.filter(p => p.inWorld());
 }
@@ -75,8 +84,43 @@ function filterArrays() {
  *** OTHER FUNCTIONS ***
  ***********************/
 
+ function checkTurret() {
+    var text = "";
+    if(getTurretBeingPlaced() != null) {
+        text = "Unavailable";
+    } else {
+        text = "Price: $100";
+    }
+    document.getElementById("buyTurretText").textContent = text;
+ }
+
+ function checkUpgrade() {
+    var text = "";
+    if(getTurretBeingSelected() != null) {
+        text = "Max Turret";
+    } else {
+        text = "Price: $200";
+    }
+    document.getElementById("upgradeTurretText").textContent = text;
+ }
+
+ function drawGameOver() {
+    background(0, 0, 0, 20);
+    fill(255);
+    textSize(48);
+    textAlign(CENTER, CENTER);
+    text("GAME OVER!", 350, 350);
+ }
+
  function updateInfo() {
     document.getElementById("Money").innerHTML = money;
+    document.getElementById("Wave").innerHTML = wave.number;
+    document.getElementById("Health").innerHTML = health;
+ }
+
+ function startWave() {
+    wave.start();
+    updateInfo();
  }
 
 function checkCollision() {
@@ -86,8 +130,9 @@ function checkCollision() {
                 var damage = min(enemy.strength, projectile.strength);
 
                 enemy.strength -= damage;
-                projectile.strength = 0;
-
+                projectile.strength -= damage;
+                money += damage;
+                updateInfo();
                 filterArrays();
             }
         }

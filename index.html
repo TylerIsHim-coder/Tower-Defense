@@ -26,9 +26,13 @@
             </div>
         </div>  
         <div id="menuButtons">
-            <button onclick="buyTurret()">Buy a Turret</button>
-            <button onclick="upgradeTurret()">Upgrade Turret</button>
-            <button>Start Wave</button>
+            <button class="hoverButton" onclick="buyTurret()" onmouseover="checkTurret()">Buy a Turret
+                <span class="hoverText" id='buyTurretText'>Price: $100</span>
+            </button>
+            <button class="hoverButton" onclick="upgradeTurret()" onmouseover="checkUpgrade()">Upgrade Turret
+                <span class="hoverText" id='upgradeTurretText'>Price: $200</span>
+            </button>
+            <button onclick="startWave()">Start Wave</button>
         </div>
     </div>
 </body>
