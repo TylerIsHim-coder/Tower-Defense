@@ -25,7 +25,7 @@ var path;
  var enemies;
  var turrets;
  var projectiles;
- var money = 1000;
+ var money = 100000;
  var health = 100;
  var wave;
 
@@ -96,12 +96,29 @@ function filterArrays() {
 
  function checkUpgrade() {
     var text = "";
-    if(getTurretBeingSelected() != null) {
-        text = "Max Turret";
+    var turret = getTurretBeingSelected();
+    if(turret != null) {
+        if(turret.upgrades >= turret.maxUpgrades) {
+            text = "Max Upgrade!";
+        } else {
+            text = "Price: $";
+            text += (turret.upgrades+ 2) * 100;
+        }
     } else {
-        text = "Price: $200";
+        text = "No Turret Selected!";
     }
     document.getElementById("upgradeTurretText").textContent = text;
+ }
+
+ function checkWave() {
+    var text = "";
+    if (wave.active == false) {
+        text = "Wave Ready";
+    } else {
+        text = "Wave Not Ready";
+    }
+    document.getElementById("waveText").textContent = text;
+    //when button pressed change to wave not ready
  }
 
  function drawGameOver() {

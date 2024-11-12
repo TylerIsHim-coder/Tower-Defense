@@ -221,6 +221,7 @@ function upgradeTurret() {
     let turret = getTurretBeingSelected();
     if (turret != null) {
         turret.upgrade();
+        checkUpgrade();
     }
 }
 
