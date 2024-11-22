@@ -112,7 +112,7 @@ function filterArrays() {
 
  function checkWave() {
     var text = "";
-    if (wave.active == false) {
+    if (wave.active == false && enemies.length == 0) {
         text = "Wave Ready";
     } else {
         text = "Wave Not Ready";

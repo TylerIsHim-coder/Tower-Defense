@@ -27,6 +27,7 @@ class Wave {
             this.active = true;
             this.timer = 0;
             this.updateDifficulty();
+            checkWave();
         }
     }
 
