@@ -25,7 +25,7 @@ var path;
  var enemies;
  var turrets;
  var projectiles;
- var money = 100000;
+ var money = 1000;
  var health = 100;
  var wave;
 
